@@ -11,12 +11,12 @@ if(plugin.canChangeColumns())
 		plugin.config.call(this,data);
 		plugin.reqId1 = theRequestManager.addRequest("trt", theRequestManager.map("d.get_custom=")+"deluge_ratio",function(hash,torrent,value)
 		{
-			torrent.dratio = value;
+			torrent.dratio = Number(value).toLocaleString(undefined, {minimumFractionDigits: 3});
 		});
 		plugin.reqId2 = theRequestManager.addRequest("trt", theRequestManager.map("d.get_ratio="),function(hash,torrent,value)
 		{
 			total = Number(value)/1000 + Number(torrent.dratio);
-			torrent.tratio = +total.toFixed(3);
+			torrent.tratio = total.toLocaleString(undefined, {minimumFractionDigits: 3});
 		});
 		plugin.trtRenameColumn();
 	}
